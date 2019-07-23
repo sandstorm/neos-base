@@ -11,7 +11,6 @@ RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-        libcap2-bin \
         git unzip \
         nginx-light gettext-base \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -31,7 +30,7 @@ ADD ./php-fpm.conf /usr/local/etc/php-fpm.conf
 ADD ./nginx.template.conf /etc/nginx/nginx.template
 RUN mkdir -p /var/lib/nginx /usr/local/var/log/ & \
     chown -R www-data /var/lib/nginx /usr/local/var/log/ /etc/nginx/ && \
-    setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/nginx
+    chmod u+s /usr/sbin/nginx
 
 # cleanup & chown
 RUN mkdir -p /app/Data/Persistent /app/Configuration/Development/Docker /composer_cache && \
