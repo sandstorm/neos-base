@@ -14,3 +14,10 @@ It contains:
 - nginx
 - git
 - zip
+
+## WARNING
+
+In your entrypoint you need to replace the nginx.conf with the nginx.template. This allows settings values from env variables in the nginx config!
+```
+envsubst '\$NGINX_HOST \$NGINX_PORT' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf
+```
